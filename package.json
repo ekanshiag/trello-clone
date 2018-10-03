@@ -4,7 +4,8 @@
   "description": "clone of trello app",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "node server/server.js",
+    "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,7 +23,10 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "mongoose": "^5.3.1",
+    "morgan": "^1.9.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   }
