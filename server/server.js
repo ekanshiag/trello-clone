@@ -6,6 +6,7 @@ const path = require('path')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const boardRoutes = require('./routes/board')
+const listRoutes = require('./routes/lists')
 
 const port = process.env.port || 8000
 app.listen(port)
@@ -18,3 +19,4 @@ app.use(bodyParser.json())
 app.use('/', express.static(path.join(__dirname, '../dist')))
 
 app.use('/board', boardRoutes)
+app.use('/boardLists', listRoutes)
