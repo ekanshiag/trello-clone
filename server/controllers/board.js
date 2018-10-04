@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Board = require('../models/board')
+const Lists = require('../models/lists')
 
 exports.getBoards = function (req, res) {
   Board.find()
@@ -19,6 +20,46 @@ exports.createBoard = function (req, res) {
   })
 
   board.save()
+    .then(result => {
+      res.status(200).json(result)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+}
+
+exports.getLists = function (req, res) {
+  let id = req.params.id
+  Lists.find()
+    .where('board', id)
+    .exec()
+    .then(result => {
+      res.status(200).json(result)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+}
+
+exports.createList = function (req, res) {
+  const list = new Lists({
+    _id: new mongoose.Types.ObjectId(),
+    title: req.body.title,
+    board: req.params.id
+  })
+
+  list.save()
+    .then(result => {
+      res.status(200).json(result)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
+}
+
+exports.deleteBoard = function (req, res) {
+  Board.remove({_id: req.params.id})
+    .exec()
     .then(result => {
       res.status(200).json(result)
     })

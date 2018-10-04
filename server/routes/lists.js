@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const listsController = require('../controllers/lists')
 
-router.get('/:id', listsController.getLists)
-router.post('/:id', listsController.createList)
+router.post('/:id/card', listsController.createCard)
+router.delete('/:id', listsController.deleteList)
 
 module.exports = router
