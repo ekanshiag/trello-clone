@@ -5,7 +5,8 @@ const cardSchema = mongoose.Schema({
   title: String,
   desc: String,
   dueDate: Date,
-  Checklist: [String]
+  Checklist: [String],
+  list: mongoose.SchemaTypes.ObjectId
 })
 
 module.exports = mongoose.model('Card', cardSchema)
