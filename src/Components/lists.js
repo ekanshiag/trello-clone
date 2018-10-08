@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from './card'
 
 class Lists extends React.Component {
   constructor (props) {
@@ -11,6 +12,9 @@ class Lists extends React.Component {
     return (
       <div>
         <h3>{this.props.list.title}</h3>
+        {this.props.list.cards.map(card => (
+          <Card card={card} />
+        ))}
       </div>
     )
   }
