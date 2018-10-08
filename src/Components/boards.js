@@ -1,6 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom'
-import BoardLists from './boardLists'
+import {Link} from 'react-router-dom'
 
 class Boards extends React.Component {
   constructor () {
@@ -50,21 +49,13 @@ class Boards extends React.Component {
       </li>)
     )
     return (
-      <Router>
-        <div>
-          <Route exact path='/boards' render={() => (
-            <div>
-              <h2>Personal Boards</h2>
-              <ul>
-                {boards}
-                <li><a onClick={this.createNewBoard}>Create New Board...</a></li>
-              </ul>
-            </div>
-          )
-          } />
-          <Route path='/b/:boardId' component={BoardLists} />
-        </div>
-      </Router>
+      <div>
+        <h2>Personal Boards</h2>
+        <ul>
+          {boards}
+          <li><a onClick={this.createNewBoard}>Create New Board...</a></li>
+        </ul>
+      </div>
     )
   }
 }

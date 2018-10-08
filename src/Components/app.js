@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Header from './header'
 import Boards from './boards'
+import BoardLists from './boardLists'
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 
 class App extends Component {
@@ -8,9 +9,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Header />
+          <Route path='/' render={props => <Header />} />
           <Route exact path='/' render={() => (<Redirect to='/boards' />)} />
-          <Route exact path='/boards' component={Boards} />
+          <Route exact path='/boards' render={props => <Boards />} />
+          <Route exact path='/b/:boardId' render={props => <BoardLists {...props} />} />
         </div>
       </Router>
     )
