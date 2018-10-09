@@ -1,13 +1,17 @@
 import React from 'react'
 import List from './lists'
+import NewList from './newList'
 
 class BoardLists extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      lists: []
+      lists: [],
+      show: false
     }
     this.updateLists = this.updateLists.bind(this)
+    this.toggleAddCardDiv = this.toggleAddCardDiv.bind(this)
+    this.addNewList = this.addNewList.bind(this)
   }
 
   updateLists () {
@@ -25,6 +29,15 @@ class BoardLists extends React.Component {
     this.updateLists()
   }
 
+  toggleAddCardDiv () {
+    this.setState({show: !this.state.show})
+  }
+
+  addNewList () {
+    this.toggleAddCardDiv()
+    this.updateLists()
+  }
+
   render () {
     return (
       <div>
@@ -33,6 +46,10 @@ class BoardLists extends React.Component {
           {this.state.lists.map(l => (
             <List key={l._id} list={l} onUpdate={this.updateLists} />
           ))}
+          <li>{this.state.show
+            ? <NewList boardId={this.props.match.params.boardId} onUpdate={this.addNewList} />
+            : <a onClick={this.toggleAddCardDiv}>+ Add Another list</a>
+          }</li>
         </ul>
       </div>
     )

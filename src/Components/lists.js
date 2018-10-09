@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './card'
-import AddNewCard from './addNewCard'
+import NewCard from './newCard'
 
 class Lists extends React.Component {
   constructor (props) {
@@ -39,7 +39,7 @@ class Lists extends React.Component {
           <Card key={card._id} card={card} />
         ))}
         { this.state.show
-          ? <AddNewCard listId={this.props.list._id} onUpdate={this.addCard} />
+          ? <NewCard listId={this.props.list._id} onUpdate={this.addCard} />
           : <a onClick={this.toggleNewCardDiv}>+ Add new card</a>}
       </div>
     )
