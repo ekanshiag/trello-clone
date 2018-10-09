@@ -1,36 +1,30 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import NewBoard from './newBoard'
 
 class Boards extends React.Component {
   constructor () {
     super()
     this.state = {
-      boards: []
+      boards: [],
+      show: false
     }
-    this.createNewBoard = this.createNewBoard.bind(this)
+    this.addNewBoard = this.addNewBoard.bind(this)
     this.updateBoard = this.updateBoard.bind(this)
+    this.toggleNewBoardDiv = this.toggleNewBoardDiv.bind(this)
   }
 
   componentDidMount () {
     this.updateBoard()
   }
 
-  createNewBoard () {
-    let title = prompt('Enter board title')
-    let data = {
-      title
-    }
-    let myInit = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }
-    fetch('http://localhost:8000/board', myInit)
-      .then(() => {
-        this.updateBoard()
-      })
+  addNewBoard () {
+    this.toggleNewBoardDiv()
+    this.updateBoard()
+  }
+
+  toggleNewBoardDiv () {
+    this.setState({show: !this.state.show})
   }
 
   updateBoard () {
@@ -53,7 +47,10 @@ class Boards extends React.Component {
         <h2>Personal Boards</h2>
         <ul>
           {boards}
-          <li><a onClick={this.createNewBoard}>Create New Board...</a></li>
+          <li>{this.state.show
+            ? <NewBoard onUpdate={this.addNewBoard} />
+            : <a onClick={this.toggleNewBoardDiv}>Create New Board...</a>
+          }</li>
         </ul>
       </div>
     )
