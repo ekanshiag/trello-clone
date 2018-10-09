@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './app.css'
 import Header from './header'
 import Boards from './boards'
 import BoardLists from './boardLists'
@@ -8,7 +9,7 @@ class App extends Component {
   render () {
     return (
       <Router>
-        <div>
+        <div className='App'>
           <Route path='/' render={props => <Header />} />
           <Route exact path='/' render={() => (<Redirect to='/boards' />)} />
           <Route exact path='/boards' render={props => <Boards />} />
