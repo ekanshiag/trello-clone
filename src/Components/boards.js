@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import NewBoard from './newBoard'
+import {Typography, Grid, Card, CardActions, CardContent, Button} from '@material-ui/core'
 
 class Boards extends React.Component {
   constructor () {
@@ -12,9 +13,6 @@ class Boards extends React.Component {
     this.addNewBoard = this.addNewBoard.bind(this)
     this.updateBoard = this.updateBoard.bind(this)
     this.toggleNewBoardDiv = this.toggleNewBoardDiv.bind(this)
-  }
-
-  componentDidMount () {
     this.updateBoard()
   }
 
@@ -36,22 +34,31 @@ class Boards extends React.Component {
         this.setState({boards: result})
       })
   }
+
   render () {
     const boards = this.state.boards.map(board =>
-      (<li key={board._id}>
-        <Link to={`/b/${board._id}`}>{board.title}</Link>
-      </li>)
+      (<Card>
+        <CardActions>
+          <Button component={Link} to={`/b/${board._id}`}>{board.title}</Button>
+        </CardActions>
+      </Card>)
     )
     return (
       <div>
-        <h2>Personal Boards</h2>
-        <ul>
+        <Typography variant='h5'>
+        Personal Boards
+        </Typography>
+        <Grid container>
           {boards}
-          <li>{this.state.show
+          {this.state.show
             ? <NewBoard onUpdate={this.addNewBoard} />
-            : <a onClick={this.toggleNewBoardDiv}>Create New Board...</a>
-          }</li>
-        </ul>
+            : <Card>
+              <CardActions>
+                <Button onClick={this.toggleNewBoardDiv}>Create New Board...</Button>
+              </CardActions>
+            </Card>
+          }
+        </Grid>
       </div>
     )
   }

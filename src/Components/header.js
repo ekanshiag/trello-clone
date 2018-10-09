@@ -1,17 +1,15 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import AppBar from '@material-ui/core/AppBar'
-import ToolBar from '@material-ui/core/Toolbar'
-import Button from '@material-ui/core/Button'
+import {AppBar, Toolbar, Button} from '@material-ui/core'
 
 export default function Header () {
   return (
     <AppBar position='static'>
-      <ToolBar variant='dense'>
+      <Toolbar variant='dense'>
         <div>
-          <Button color='secondary' component={Link} to='/boards'>Trello</Button>
+          <Button color='inherit' component={Link} to='/boards'>Trello</Button>
         </div>
-      </ToolBar>
+      </Toolbar>
     </AppBar>
   )
 }
