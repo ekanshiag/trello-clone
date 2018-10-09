@@ -1,20 +1,46 @@
 import React from 'react'
 import Card from './card'
+import AddNewCard from './addNewCard'
 
 class Lists extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      cards: []
+      title: this.props.list.title,
+      cards: this.props.list.cards,
+      show: false
     }
+    this.toggleNewCardDiv = this.toggleNewCardDiv.bind(this)
+    this.addCard = this.addCard.bind(this)
   }
+
+  toggleNewCardDiv () {
+    this.setState({show: !this.state.show})
+  }
+
+  addCard () {
+    fetch('http://localhost:8000/boardLists/' + this.props.list._id + '/card')
+      .then(result => {
+        return result.json()
+      })
+      .then(result => {
+        this.setState({cards: result})
+        this.toggleNewCardDiv()
+        this.props.onUpdate()
+      })
+  }
+
   render () {
+    console.log('RENDERING LISTS AND CARDS')
     return (
       <div>
-        <h3>{this.props.list.title}</h3>
-        {this.props.list.cards.map(card => (
-          <Card card={card} />
+        <p>{this.state.title}</p>
+        {this.state.cards.map(card => (
+          <Card key={card._id} card={card} />
         ))}
+        { this.state.show
+          ? <AddNewCard listId={this.props.list._id} onUpdate={this.addCard} />
+          : <a onClick={this.toggleNewCardDiv}>+ Add new card</a>}
       </div>
     )
   }

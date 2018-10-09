@@ -16,6 +16,7 @@ class BoardLists extends React.Component {
         return result.json()
       })
       .then(result => {
+        console.log(result)
         this.setState({lists: result})
       })
   }
@@ -30,7 +31,7 @@ class BoardLists extends React.Component {
         <h1>lists</h1>
         <ul>
           {this.state.lists.map(l => (
-            <List list={l} />
+            <List key={l._id} list={l} onUpdate={this.updateLists} />
           ))}
         </ul>
       </div>
