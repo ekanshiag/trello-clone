@@ -2,11 +2,11 @@ import React from 'react'
 import List from './lists'
 import NewList from './newList'
 
-class BoardLists extends React.Component {
+class Board extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      board: '',
+      title: '',
       lists: [],
       show: false
     }
@@ -17,12 +17,12 @@ class BoardLists extends React.Component {
   }
 
   updateLists () {
-    fetch('http://localhost:8000/board/' + this.props.match.params.boardId)
+    fetch('http://localhost:8000/boards/' + this.props.match.params.boardId)
       .then(result => {
         return result.json()
       })
       .then(result => {
-        this.setState({lists: result})
+        this.setState({title: result.title, lists: result.lists})
       })
   }
 
@@ -53,4 +53,4 @@ class BoardLists extends React.Component {
   }
 }
 
-export default BoardLists
+export default Board

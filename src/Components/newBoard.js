@@ -28,7 +28,7 @@ class NewBoard extends React.Component {
       },
       body: JSON.stringify(data)
     }
-    fetch('http://localhost:8000/board', myInit)
+    fetch('http://localhost:8000/boards', myInit)
       .then(() => {
         this.props.onUpdate()
       })

@@ -19,9 +19,9 @@ exports.createCard = function (req, res) {
     title: req.body.title,
     list: req.params.id
   })
-  Lists.update({_id: req.params.id}, {$push: {cards: newCard._id}})
-    .exec()
-    .then(newCard.save())
+  
+  newCard.save()
+    .then(Lists.update({_id: req.params.id}, {$push: {cards: newCard._id}}))
     .then(result => {
       res.status(200).json(result)
     })
@@ -32,7 +32,6 @@ exports.createCard = function (req, res) {
 
 exports.deleteList = function (req, res) {
   Lists.remove({_id: req.params.id})
-    .exec()
     .then(result => {
       res.status(200).json(result)
     })

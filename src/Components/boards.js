@@ -37,7 +37,7 @@ class Boards extends React.Component {
   }
 
   updateBoard () {
-    fetch('http://localhost:8000/board')
+    fetch('http://localhost:8000/boards')
       .then(result => {
         return result.json()
       })

@@ -20,7 +20,7 @@ export default class AddNewCard extends React.Component {
       },
       body: JSON.stringify(data)
     }
-    fetch('http://localhost:8000/boardLists/' + this.props.listId + '/card', myInit)
+    fetch('http://localhost:8000/list/' + this.props.listId + '/card', myInit)
       .then(response => {
         this.props.onUpdate()
       })

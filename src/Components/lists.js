@@ -19,7 +19,7 @@ class Lists extends React.Component {
   }
 
   addCard () {
-    fetch('http://localhost:8000/boardLists/' + this.props.list._id + '/card')
+    fetch('http://localhost:8000/list/' + this.props.list._id + '/card')
       .then(result => {
         return result.json()
       })

@@ -4,8 +4,8 @@ const boardController = require('../controllers/board')
 
 router.get('/', boardController.getBoards)
 router.post('/', boardController.createBoard)
-router.get('/:id', boardController.getLists)
-router.post('/:id', boardController.createList)
+router.get('/:id', boardController.getBoard)
 router.delete('/:id', boardController.deleteBoard)
+router.post('/:id/lists', boardController.createList)
 
 module.exports = router

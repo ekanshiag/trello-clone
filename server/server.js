@@ -21,6 +21,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use('/', express.static(path.join(__dirname, '../dist')))
 
-app.use('/board', boardRoutes)
-app.use('/boardLists', listRoutes)
+app.use('/boards', boardRoutes)
+app.use('/list', listRoutes)
 app.use('/card', cardRoutes)
