@@ -20,7 +20,7 @@ export default class NewList extends React.Component {
       },
       body: JSON.stringify(data)
     }
-    fetch ('http://localhost:8000/board/' + this.props.boardId, myInit)
+    fetch ('http://localhost:8000/board/' + this.props.boardId + '/lists', myInit)
       .then(() => {
         this.props.onUpdate()
       })

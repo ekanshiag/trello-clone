@@ -20,8 +20,8 @@ exports.createCard = function (req, res) {
     list: req.params.id
   })
   
-  newCard.save()
-    .then(Lists.update({_id: req.params.id}, {$push: {cards: newCard._id}}))
+  Lists.update({_id: req.params.id}, {$push: {cards: newCard._id}})
+    .then(newCard.save())
     .then(result => {
       res.status(200).json(result)
     })

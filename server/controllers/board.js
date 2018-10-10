@@ -33,7 +33,7 @@ exports.getBoard = function (req, res) {
   Board.findById(id)
     .populate({
       path: 'lists',
-      populate: 'cards'
+      populate: {path: 'cards'}
     })
     .then(result => {
       res.status(200).json(result)
@@ -61,8 +61,8 @@ exports.createList = function (req, res) {
     board: req.params.id
   })
 
-  list.save()
-    .then(Board.update({id: req.params.id}, {$push: {lists: list._id}}))
+  Board.update({_id: req.params.id}, {$push: {lists: list._id}})
+    .then(list.save())
     .then(result => {
       res.status(200).json(result)
     })
