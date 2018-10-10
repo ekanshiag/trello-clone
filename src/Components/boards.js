@@ -1,7 +1,18 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import NewBoard from './newBoard'
-import {Typography, Grid, Card, CardActions, CardContent, Button} from '@material-ui/core'
+import {Typography, Grid, Card, CardActions, Button} from '@material-ui/core'
+
+const styles = {
+  grid: {
+    margin: '10px',
+    padding: '20px',
+    height: '100px'
+  },
+  card: {
+    height: '100px'
+  }
+}
 
 class Boards extends React.Component {
   constructor () {
@@ -37,26 +48,30 @@ class Boards extends React.Component {
 
   render () {
     const boards = this.state.boards.map(board =>
-      (<Card key={board._id}>
-        <CardActions>
-          <Button component={Link} to={`/b/${board._id}`}>{board.title}</Button>
-        </CardActions>
-      </Card>)
+      (<Grid item sm={3} key={board._id} style={styles.grid}>
+        <Card style={styles.card}>
+          <CardActions>
+            <Button component={Link} to={`/b/${board._id}`}>{board.title}</Button>
+          </CardActions>
+        </Card>
+      </Grid>)
     )
     return (
       <div>
-        <Typography variant='h5'>
+        <Typography variant='h5' style={{padding: '20px', margin: '10px'}}>
         Personal Boards
         </Typography>
-        <Grid container>
+        <Grid container >
           {boards}
           {this.state.show
-            ? <NewBoard onUpdate={this.addNewBoard} onClose={this.toggleNewBoardDiv}/>
-            : <Card>
-              <CardActions>
-                <Button onClick={this.toggleNewBoardDiv}>Create New Board...</Button>
-              </CardActions>
-            </Card>
+            ? <NewBoard onUpdate={this.addNewBoard} onClose={this.toggleNewBoardDiv} />
+            : <Grid item style={styles.grid}>
+              <Card style={styles.card}>
+                <CardActions>
+                  <Button onClick={this.toggleNewBoardDiv}>Create New Board...</Button>
+                </CardActions>
+              </Card>
+            </Grid>
           }
         </Grid>
       </div>

@@ -31,7 +31,6 @@ class Lists extends React.Component {
   }
 
   render () {
-    console.log('RENDERING LISTS AND CARDS')
     return (
       <div>
         <p>{this.state.title}</p>

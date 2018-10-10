@@ -6,12 +6,14 @@ class BoardLists extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      board: '',
       lists: [],
       show: false
     }
     this.updateLists = this.updateLists.bind(this)
     this.toggleAddCardDiv = this.toggleAddCardDiv.bind(this)
     this.addNewList = this.addNewList.bind(this)
+    this.updateLists()
   }
 
   updateLists () {
@@ -22,10 +24,6 @@ class BoardLists extends React.Component {
       .then(result => {
         this.setState({lists: result})
       })
-  }
-
-  componentDidMount () {
-    this.updateLists()
   }
 
   toggleAddCardDiv () {
