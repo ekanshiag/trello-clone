@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import List from './lists'
 import NewList from './newList'
+import {Typography, Grid, Card, Button} from '@material-ui/core'
 
 class Board extends React.Component {
   constructor (props) {
@@ -37,18 +38,27 @@ class Board extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>lists</h1>
-        <ul>
+      <Fragment>
+        <Typography variant='h6' style={{margin: '10px', padding: '20px'}}>
+          {this.state.title}
+        </Typography>
+        <Grid container>
           {this.state.lists.map(l => (
-            <List key={l._id} list={l} onUpdate={this.updateLists} />
+            <Grid item key={l._id} style={{margin: '10px', padding: '20px', height: '100px'}}>
+              <List list={l} onUpdate={this.updateLists} />
+            </Grid>
           ))}
-          <li>{this.state.show
-            ? <NewList boardId={this.props.match.params.boardId} onUpdate={this.addNewList} />
-            : <a onClick={this.toggleAddCardDiv}>+ Add Another list</a>
-          }</li>
-        </ul>
-      </div>
+          <Grid item style={{margin: '10px', padding: '20px', height: '100px'}}>
+            {this.state.show
+              ? <NewList boardId={this.props.match.params.boardId} onUpdate={this.addNewList} onClose={this.toggleAddCardDiv} />
+              : <Card>
+                <Button onClick={this.toggleAddCardDiv}>
+                    + Add Another List
+                </Button>
+              </Card>}
+          </Grid>
+        </Grid>
+      </Fragment>
     )
   }
 }

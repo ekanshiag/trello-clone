@@ -1,6 +1,7 @@
 import React from 'react'
-import Card from './card'
+import Cards from './card'
 import NewCard from './newCard'
+import {Card, Typography, List, Button, ListItem} from '@material-ui/core'
 
 class Lists extends React.Component {
   constructor (props) {
@@ -32,15 +33,27 @@ class Lists extends React.Component {
 
   render () {
     return (
-      <div>
-        <p>{this.state.title}</p>
-        {this.state.cards.map(card => (
-          <Card key={card._id} card={card} />
-        ))}
-        { this.state.show
-          ? <NewCard listId={this.props.list._id} onUpdate={this.addCard} />
-          : <a onClick={this.toggleNewCardDiv}>+ Add new card</a>}
-      </div>
+      <Card>
+        <Typography variant='subtitle1'>
+          {this.state.title}
+        </Typography>
+        <List component='ul'>
+          {this.state.cards.map(card => (
+            <ListItem key={card._id}>
+              <Cards card={card} />
+            </ListItem>
+          ))}
+        </List>
+        {this.state.show
+          ? <NewCard listId={this.props.list._id}
+            onUpdate={this.addCard}
+            onClose={this.toggleNewCardDiv} />
+          : <Card>
+            <Button onClick={this.toggleNewCardDiv}>
+                  +Add New Card
+            </Button>
+          </Card>}
+      </Card>
     )
   }
 }

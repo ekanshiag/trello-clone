@@ -37,7 +37,7 @@ class NewBoard extends React.Component {
   render () {
     return (
       <div>
-        <Dialog open={this.state.open}>
+        <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogContent>
             <TextField
               autoFocus

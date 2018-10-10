@@ -19,7 +19,7 @@ exports.createCard = function (req, res) {
     title: req.body.title,
     list: req.params.id
   })
-  
+
   Lists.update({_id: req.params.id}, {$push: {cards: newCard._id}})
     .then(newCard.save())
     .then(result => {

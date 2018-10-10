@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {Fragment} from 'react'
+import { Card, CardContent, TextField, CardActions, Button } from '@material-ui/core';
 
 export default class AddNewCard extends React.Component {
   constructor () {
@@ -28,11 +29,21 @@ export default class AddNewCard extends React.Component {
 
   render () {
     return (
-      <div>
-        <input type='text' placeholder='Enter title for new card' onChange={event => { this.setState({value: event.target.value}) }} />
-        <button onClick={this.addCard}>Add Card</button>
-        <button>X</button>
-      </div>
+      <Fragment>
+        <Card>
+          <CardContent>
+            <TextField
+              type='text'
+              placeholder='Enter title for new card'
+              onChange={event => { this.setState({value: event.target.value}) }}
+            />
+          </CardContent>
+          <CardActions>
+            <Button onClick={this.addCard}>Add Card</Button>
+            <Button onClick={this.props.onClose}>X</Button>
+          </CardActions>
+        </Card>
+      </Fragment>
     )
   }
 }
