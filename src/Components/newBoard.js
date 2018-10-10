@@ -1,12 +1,20 @@
 import React from 'react'
+import {Dialog, DialogContent, DialogActions, TextField, Button} from '@material-ui/core'
 
 class NewBoard extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
+      open: true,
       value: ''
     }
     this.addBoard = this.addBoard.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleClose () {
+    this.setState({open: false})
+    this.props.onClose()
   }
 
   addBoard () {
@@ -29,9 +37,20 @@ class NewBoard extends React.Component {
   render () {
     return (
       <div>
-        <input type='text' placeholder='Enter title for new board..' onChange={event => {this.setState({value: event.target.value})}} />
-        <button onClick={this.addBoard}>Add board</button>
-        <button>X</button>
+        <Dialog open={this.state.open}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              type='text'
+              placeholder='Enter title for new board..'
+              onChange={event => { this.setState({value: event.target.value}) }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button color='primary' onClick={this.addBoard}>Add board</Button>
+            <Button color='primary' onClick={this.handleClose}>X</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }

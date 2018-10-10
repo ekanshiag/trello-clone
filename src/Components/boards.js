@@ -37,7 +37,7 @@ class Boards extends React.Component {
 
   render () {
     const boards = this.state.boards.map(board =>
-      (<Card>
+      (<Card key={board._id}>
         <CardActions>
           <Button component={Link} to={`/b/${board._id}`}>{board.title}</Button>
         </CardActions>
@@ -51,7 +51,7 @@ class Boards extends React.Component {
         <Grid container>
           {boards}
           {this.state.show
-            ? <NewBoard onUpdate={this.addNewBoard} />
+            ? <NewBoard onUpdate={this.addNewBoard} onClose={this.toggleNewBoardDiv}/>
             : <Card>
               <CardActions>
                 <Button onClick={this.toggleNewBoardDiv}>Create New Board...</Button>
