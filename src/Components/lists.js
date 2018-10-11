@@ -1,7 +1,7 @@
 import React from 'react'
 import Cards from './card'
 import NewCard from './newCard'
-import {Card, Typography, List, Button, ListItem} from '@material-ui/core'
+import {Card, List, Button, ListItem, TextField} from '@material-ui/core'
 
 class Lists extends React.Component {
   constructor (props) {
@@ -9,14 +9,37 @@ class Lists extends React.Component {
     this.state = {
       title: this.props.list.title,
       cards: this.props.list.cards,
-      show: false
+      show: false,
+      editTitle: false
     }
     this.toggleNewCardDiv = this.toggleNewCardDiv.bind(this)
     this.addCard = this.addCard.bind(this)
+    this.toggleEditTitle = this.toggleEditTitle.bind(this)
+    this.saveTitle = this.saveTitle.bind(this)
+  }
+
+  toggleEditTitle () {
+    this.setState({editTitle: !this.state.editTitle})
   }
 
   toggleNewCardDiv () {
     this.setState({show: !this.state.show})
+  }
+
+  saveTitle (event) {
+    if (event.key !== 'Enter') return
+    let data = {
+      title: event.target.value
+    }
+    let myInit = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }
+    fetch('http://localhost:8000/list/' + this.props.list._id, myInit)
+      .then(this.toggleEditTitle())
   }
 
   addCard () {
@@ -34,9 +57,14 @@ class Lists extends React.Component {
   render () {
     return (
       <Card>
-        <Typography variant='subtitle1'>
-          {this.state.title}
-        </Typography>
+        <TextField
+          type='text'
+          disabled={this.state.editTitle}
+          value={this.state.title}
+          onDoubleClick={this.toggleEditTitle}
+          onChange={event => { this.setState({title: event.target.value}) }}
+          onKeyDown={event => { this.saveTitle(event) }}
+        />
         <List component='ul'>
           {this.state.cards.map(card => (
             <ListItem key={card._id}>
