@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import { Card, CardContent, TextField, CardActions, Button } from '@material-ui/core';
+import { Card, CardContent, TextField, CardActions, Button } from '@material-ui/core'
 
 export default class AddNewCard extends React.Component {
   constructor () {

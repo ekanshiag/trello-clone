@@ -43,6 +43,13 @@ exports.getBoard = function (req, res) {
     })
 }
 
+exports.updateBoard = function (req, res) {
+  Board.update({_id: req.params.id}, {$set: req.body})
+    .then(result => {
+      res.status(200).json(result)
+    })
+}
+
 exports.deleteBoard = function (req, res) {
   Board.remove({_id: req.params.id})
     .exec()
