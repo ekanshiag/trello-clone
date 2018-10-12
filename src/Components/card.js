@@ -53,7 +53,7 @@ export default class Cards extends React.Component {
             <Typography variant='h6'>
               {this.state.title}
             </Typography>
-            <Typography variant='body2'>
+            <Typography variant='subtitle2'>
               {this.state.dueDate}
             </Typography>
           </CardContent>

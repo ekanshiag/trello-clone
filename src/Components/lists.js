@@ -16,6 +16,10 @@ class Lists extends React.Component {
     this.addCard = this.addCard.bind(this)
     this.toggleEditTitle = this.toggleEditTitle.bind(this)
     this.saveTitle = this.saveTitle.bind(this)
+    this.onDragStart = this.onDragStart.bind(this)
+    this.onDrop = this.onDrop.bind(this)
+    this.updateCards = this.updateCards.bind(this)
+    this.removeCard = this.removeCard.bind(this)
   }
 
   toggleEditTitle () {
@@ -24,6 +28,37 @@ class Lists extends React.Component {
 
   toggleNewCardDiv () {
     this.setState({show: !this.state.show})
+  }
+
+  onDragStart (event, card) {
+    event.dataTransfer.setData('id', card._id)
+    event.dataTransfer.setData('card', card)
+  }
+
+  updateCards () {
+    fetch('http://localhost:8000/list/' + this.props.list._id + '/card')
+      .then(result => {
+        return result.json()
+      })
+      .then(result => {
+        this.setState({cards: result})
+      })
+  }
+
+  onDrop (event, listId) {
+    let cardId = event.dataTransfer.getData('id')
+    let data = {
+      list: listId
+    }
+    let myInit = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }
+    fetch('http://localhost:8000/card/' + cardId, myInit)
+      .then(() => this.updateCards())
   }
 
   saveTitle (event) {
@@ -54,6 +89,12 @@ class Lists extends React.Component {
       })
   }
 
+  removeCard (card) {
+    let array = this.state.cards
+    array = array.filter(c => c !== card)
+    this.setState({cards: array})
+  }
+
   render () {
     return (
       <Card>
@@ -65,9 +106,17 @@ class Lists extends React.Component {
           onChange={event => { this.setState({title: event.target.value}) }}
           onKeyDown={event => { this.saveTitle(event) }}
         />
-        <List component='ul'>
+        <List component='ul'
+          onDragOver={e => e.preventDefault()}
+          onDrop={e => this.onDrop(e, this.props.list._id)}
+        >
           {this.state.cards.map(card => (
-            <ListItem key={card._id}>
+            <ListItem
+              key={card._id}
+              draggable
+              onDragStart={e => { this.onDragStart(e, card) }}
+              onDragEnd={e => { this.removeCard(card) }}
+            >
               <Cards card={card} />
             </ListItem>
           ))}

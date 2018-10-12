@@ -4,7 +4,6 @@ const Lists = require('../models/lists')
 
 exports.getBoards = function (req, res) {
   Board.find()
-    .exec()
     .then(result => {
       res.status(200).json(result)
     })
@@ -52,7 +51,6 @@ exports.updateBoard = function (req, res) {
 
 exports.deleteBoard = function (req, res) {
   Board.remove({_id: req.params.id})
-    .exec()
     .then(result => {
       res.status(200).json(result)
     })
