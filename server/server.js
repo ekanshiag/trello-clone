@@ -13,7 +13,7 @@ const cors = require('cors')
 const port = process.env.port || 8000
 app.listen(port)
 
-mongoose.connect('mongodb+srv://trello:' + password + '@trellocluster-pkpt1.mongodb.net/test?retryWrites=true')
+mongoose.connect('mongodb+srv://trello:' + password + '@trellocluster-pkpt1.mongodb.net/test?retryWrites=true', {useNewUrlParser: true})
 
 app.use(cors())
 app.use(morgan('dev'))
