@@ -7,8 +7,7 @@ import {Card,
   TextField,
   DialogActions,
   Button,
-  IconButton,
-  Input} from '@material-ui/core'
+  IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 const moment = require('moment')
 
@@ -99,6 +98,9 @@ export default class Cards extends React.Component {
                 this.setState({updateCard: true})
                 tempCard.desc = event.target.value
               }}
+              InputLabelProps={{
+                shrink: true
+              }}
             />
             <br />
             <TextField
@@ -112,8 +114,6 @@ export default class Cards extends React.Component {
               InputLabelProps={{
                 shrink: true
               }}
-            />
-            />
             />
           </DialogContent>
           <DialogActions>
