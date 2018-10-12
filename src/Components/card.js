@@ -6,7 +6,9 @@ import {Card,
   DialogContent,
   TextField,
   DialogActions,
-  Button} from '@material-ui/core'
+  Button,
+  IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 let tempCard = {}
 
@@ -20,6 +22,7 @@ export default class Cards extends React.Component {
     }
     this.toggleEditCardDiv = this.toggleEditCardDiv.bind(this)
     this.saveCard = this.saveCard.bind(this)
+    this.deleteCard = this.deleteCard.bind(this)
   }
 
   toggleEditCardDiv () {
@@ -45,6 +48,16 @@ export default class Cards extends React.Component {
       })
   }
 
+  deleteCard () {
+    let myInit = {
+      method: 'DELETE'
+    }
+    fetch('http://localhost:8000/card/' + this.state._id, myInit)
+      .then(() => {
+        this.props.onUpdate()
+      })
+  }
+
   render () {
     return (
       <Fragment>
@@ -61,6 +74,11 @@ export default class Cards extends React.Component {
         <Dialog
           open={this.state.editCard}
           onClose={this.toggleEditCardDiv}>
+          <DialogActions>
+            <IconButton onClick={this.deleteCard}>
+              <DeleteIcon />
+            </IconButton>
+          </DialogActions>
           <DialogContent>
             <TextField
               type='text'

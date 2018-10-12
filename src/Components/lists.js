@@ -117,7 +117,7 @@ class Lists extends React.Component {
               onDragStart={e => { this.onDragStart(e, card) }}
               onDragEnd={e => { this.removeCard(card) }}
             >
-              <Cards card={card} />
+              <Cards card={card} onUpdate={this.updateCards} />
             </ListItem>
           ))}
         </List>
