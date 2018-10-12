@@ -24,7 +24,20 @@ exports.updateCard = function (req, res) {
 }
 
 exports.deleteCard = function (req, res) {
-  Card.remove({_id: req.params.id})
+  Card.findById({_id: req.params.id})
+    .populate('list')
+    .then(card => {
+      return card
+    })
+    .then(card => {
+      let list = card.list
+      list.cards = list.cards.filter(c => c.toString() !== req.params.id)
+      list.save()
+      return card
+    })
+    .then(card => {
+      card.remove()
+    })
     .then(result => {
       res.status(200).json(result)
     })
