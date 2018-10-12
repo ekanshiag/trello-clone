@@ -38,7 +38,25 @@ exports.updateList = function (req, res) {
 }
 
 exports.deleteList = function (req, res) {
-  Lists.remove({_id: req.params.id})
+  Lists.findById({_id: req.params.id})
+    .populate('board')
+    .populate('cards')
+    .then(list => {
+      return list
+    })
+    .then(list => {
+      let board = list.board
+      board.lists = board.lists.filter(l => l.toString() !== req.params.id)
+      board.save()
+      let cards = list.cards
+      cards.forEach(card => {
+        card.remove()
+      })
+      return list
+    })
+    .then(list => {
+      list.remove()
+    })
     .then(result => {
       res.status(200).json(result)
     })
