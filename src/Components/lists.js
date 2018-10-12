@@ -1,7 +1,8 @@
 import React from 'react'
 import Cards from './card'
 import NewCard from './newCard'
-import {Card, List, Button, ListItem, TextField} from '@material-ui/core'
+import {Card, List, Button, ListItem, TextField, IconButton} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 class Lists extends React.Component {
   constructor (props) {
@@ -20,6 +21,7 @@ class Lists extends React.Component {
     this.onDrop = this.onDrop.bind(this)
     this.updateCards = this.updateCards.bind(this)
     this.removeCard = this.removeCard.bind(this)
+    this.deleteList = this.deleteList.bind(this)
   }
 
   toggleEditTitle () {
@@ -95,6 +97,16 @@ class Lists extends React.Component {
     this.setState({cards: array})
   }
 
+  deleteList () {
+    let myInit = {
+      method: 'DELETE'
+    }
+    fetch('http://localhost:8000/list/' + this.props.list._id, myInit)
+      .then(() => {
+        this.props.onUpdate()
+      })
+  }
+
   render () {
     return (
       <Card>
@@ -106,6 +118,9 @@ class Lists extends React.Component {
           onChange={event => { this.setState({title: event.target.value}) }}
           onKeyDown={event => { this.saveTitle(event) }}
         />
+        <IconButton onClick={this.deleteList}>
+          <DeleteIcon />
+        </IconButton>
         <List component='ul'
           onDragOver={e => e.preventDefault()}
           onDrop={e => this.onDrop(e, this.props.list._id)}
