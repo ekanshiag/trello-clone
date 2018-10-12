@@ -7,8 +7,10 @@ import {Card,
   TextField,
   DialogActions,
   Button,
-  IconButton} from '@material-ui/core'
+  IconButton,
+  Input} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+const moment = require('moment')
 
 let tempCard = {}
 
@@ -67,7 +69,7 @@ export default class Cards extends React.Component {
               {this.state.title}
             </Typography>
             <Typography variant='subtitle2'>
-              {this.state.dueDate}
+              {moment(this.state.dueDate).format('MMM D, YYYY')}
             </Typography>
           </CardContent>
         </Card>
@@ -97,6 +99,21 @@ export default class Cards extends React.Component {
                 this.setState({updateCard: true})
                 tempCard.desc = event.target.value
               }}
+            />
+            <br />
+            <TextField
+              type='Date'
+              label='Due Date'
+              defaultValue={moment(this.state.dueDate).format('YYYY-MM-DD')}
+              onChange={event => {
+                this.setState({updateCard: true})
+                tempCard.dueDate = event.target.value
+              }}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+            />
             />
           </DialogContent>
           <DialogActions>
