@@ -78,9 +78,7 @@ export default class Cards extends React.Component {
           onClose={this.toggleEditCardDiv}
           fullWidth>
           <DialogActions>
-            <IconButton onClick={this.deleteCard}>
-              <DeleteIcon />
-            </IconButton>
+            <Button onClick={this.toggleEditCardDiv}>X</Button>
           </DialogActions>
           <DialogContent>
             <TextField
@@ -133,7 +131,9 @@ export default class Cards extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.saveCard}>Save</Button>
-            <Button onClick={this.toggleEditCardDiv}>X</Button>
+            <IconButton onClick={this.deleteCard}>
+              <DeleteIcon />
+            </IconButton>
           </DialogActions>
         </Dialog>
       </Fragment>
