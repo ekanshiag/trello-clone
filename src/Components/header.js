@@ -7,7 +7,7 @@ export default function Header () {
     <AppBar position='static'>
       <Toolbar variant='dense'>
         <div>
-          <Button color='inherit' component={Link} to='/boards'>Trello</Button>
+          <Button color='inherit' component={Link} to='/'>Trello</Button>
         </div>
       </Toolbar>
     </AppBar>

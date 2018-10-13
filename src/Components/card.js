@@ -69,7 +69,7 @@ export default class Cards extends React.Component {
               {this.state.title}
             </Typography>
             <Typography variant='subtitle2'>
-              {moment(this.state.dueDate).format('MMM D, YYYY')}
+              {this.state.dueDate ? moment(this.state.dueDate).format('MMM D, YYYY') : null}
             </Typography>
           </CardContent>
         </Card>
