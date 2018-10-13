@@ -9,6 +9,7 @@ import {Card,
   Button,
   IconButton} from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Checklist from './checklist'
 const moment = require('moment')
 
 let tempCard = {}
@@ -45,7 +46,6 @@ export default class Cards extends React.Component {
     fetch('http://localhost:8000/card/' + this.state._id, myInit)
       .then(() => {
         this.setState({...data})
-        this.toggleEditCardDiv()
       })
   }
 
@@ -60,6 +60,7 @@ export default class Cards extends React.Component {
   }
 
   render () {
+    tempCard.checklist = this.state.checklist
     return (
       <Fragment>
         <Card component='button' onClick={this.toggleEditCardDiv}>
@@ -74,7 +75,8 @@ export default class Cards extends React.Component {
         </Card>
         <Dialog
           open={this.state.editCard}
-          onClose={this.toggleEditCardDiv}>
+          onClose={this.toggleEditCardDiv}
+          fullWidth>
           <DialogActions>
             <IconButton onClick={this.deleteCard}>
               <DeleteIcon />
@@ -84,6 +86,7 @@ export default class Cards extends React.Component {
             <TextField
               type='text'
               placeholder={this.state.title}
+              fullWidth
               onChange={event => {
                 this.setState({updateCard: true})
                 tempCard.title = event.target.value
@@ -94,6 +97,7 @@ export default class Cards extends React.Component {
               type='text'
               label='Description'
               placeholder={this.state.desc}
+              fullWidth
               onChange={event => {
                 this.setState({updateCard: true})
                 tempCard.desc = event.target.value
@@ -106,6 +110,7 @@ export default class Cards extends React.Component {
             <TextField
               type='Date'
               label='Due Date'
+              fullWidth
               defaultValue={moment(this.state.dueDate).format('YYYY-MM-DD')}
               onChange={event => {
                 this.setState({updateCard: true})
@@ -115,6 +120,16 @@ export default class Cards extends React.Component {
                 shrink: true
               }}
             />
+            <Checklist
+              checklist={this.state.checklist}
+              onAdd={item => {
+                this.setState({updateCard: true})
+                tempCard.checklist.push(item)
+              }}
+              onStatusChange={newCheckList => {
+                this.setState({updateCard: true})
+                tempCard.checklist = newCheckList
+              }} />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.saveCard}>Save</Button>

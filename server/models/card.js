@@ -5,7 +5,10 @@ const cardSchema = mongoose.Schema({
   title: String,
   desc: String,
   dueDate: Date,
-  Checklist: [String],
+  checklist: [{
+    task: String,
+    done: Boolean
+  }],
   list: {type: mongoose.SchemaTypes.ObjectId, ref: 'List'}
 })
 
