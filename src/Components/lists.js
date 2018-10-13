@@ -109,7 +109,9 @@ class Lists extends React.Component {
 
   render () {
     return (
-      <Card>
+      <Card
+        onDragOver={e => e.preventDefault()}
+        onDrop={e => this.onDrop(e, this.props.list._id)}>
         <TextField
           type='text'
           disabled={this.state.editTitle}
@@ -121,10 +123,7 @@ class Lists extends React.Component {
         <IconButton onClick={this.deleteList}>
           <DeleteIcon />
         </IconButton>
-        <List component='ul'
-          onDragOver={e => e.preventDefault()}
-          onDrop={e => this.onDrop(e, this.props.list._id)}
-        >
+        <List component='ul'>
           {this.state.cards.map(card => (
             <ListItem
               key={card._id}
